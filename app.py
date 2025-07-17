@@ -14,7 +14,7 @@ def replace_text_preserving_formatting(doc, full_name, firm_name):
             if "Burlington Street Partners" in run.text:
                 run.text = run.text.replace("Burlington Street Partners", firm_name)
             if "Dear Finley," in run.text:
-                run.text = run.text.replace("Dear Finley,", f"Dear {first_name},")
+                run.text = run.text.replace("Dear Finley", f"Dear {first_name}")
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
@@ -25,7 +25,7 @@ def replace_text_preserving_formatting(doc, full_name, firm_name):
                         if "Burlington Street Partners" in run.text:
                             run.text = run.text.replace("Burlington Street Partners", firm_name)
                         if "Dear Finley," in run.text:
-                            run.text = run.text.replace("Dear Finley,", f"Dear {first_name},")
+                            run.text = run.text.replace("Dear Finley", f"Dear {first_name}")
     return doc
 
 @app.route("/", methods=["GET", "POST"])
