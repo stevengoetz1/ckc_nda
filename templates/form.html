@@ -1,14 +1,34 @@
 <!doctype html>
 <html>
-<head><title>NDA Generator</title></head>
+<head>
+  <title>NDA Generator</title>
+  <script>
+    function promptAndSet(field, label) {
+      const value = prompt(`Enter ${label}:`);
+      if (value !== null && value.trim() !== "") {
+        document.getElementById(field).value = value.trim();
+        document.getElementById(field + '_btn').innerText = label + ': ' + value.trim();
+        checkAllFields();
+      }
+    }
+    function checkAllFields() {
+      const fields = ['project_name', 'firm_name', 'full_name'];
+      const allFilled = fields.every(f => document.getElementById(f).value.trim() !== "");
+      document.getElementById('submit_btn').disabled = !allFilled;
+    }
+    window.onload = checkAllFields;
+  </script>
+</head>
 <body>
   <h2>Generate NDA</h2>
   <form method="POST">
-    <label>Full Name:</label><br>
-    <input type="text" name="full_name" required><br><br>
-    <label>Firm Name:</label><br>
-    <input type="text" name="firm_name" required><br><br>
-    <button type="submit">Generate NDA</button>
+    <button type="button" id="project_name_btn" onclick="promptAndSet('project_name', 'Project Name')">Project Name</button><br><br>
+    <button type="button" id="firm_name_btn" onclick="promptAndSet('firm_name', 'Firm Name')">Firm Name</button><br><br>
+    <button type="button" id="full_name_btn" onclick="promptAndSet('full_name', 'Full Name')">Full Name</button><br><br>
+    <input type="hidden" name="project_name" id="project_name" value="">
+    <input type="hidden" name="firm_name" id="firm_name" value="">
+    <input type="hidden" name="full_name" id="full_name" value="">
+    <button type="submit" id="submit_btn" disabled>Generate NDA</button>
   </form>
 </body>
 </html>
