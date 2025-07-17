@@ -43,7 +43,8 @@ def form():
         firm_name = request.form["firm_name"]
         project_name = request.form["project_name"]
 
-        doc = Document("Project Slab_NDA_Burlington Street Partners.docx")
+        doc_path = os.path.join(os.path.dirname(__file__), "Project Slab_NDA_Burlington Street Partners.docx")
+        doc = Document(doc_path)
         updated_doc = replace_text_preserving_formatting(doc, full_name, firm_name, project_name)
 
         output_stream = io.BytesIO()
